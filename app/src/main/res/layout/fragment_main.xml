@@ -10,7 +10,7 @@
         android:background="@drawable/logogroup"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="30dp">
+        android:layout_marginLeft="20dp">
         <!--logo-->
 
         <!--user-->
