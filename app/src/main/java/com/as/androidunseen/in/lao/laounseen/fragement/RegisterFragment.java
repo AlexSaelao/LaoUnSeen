@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +23,15 @@ import android.widget.Toast;
 import com.as.androidunseen.in.lao.laounseen.MainActivity;
 import com.as.androidunseen.in.lao.laounseen.R;
 import com.as.androidunseen.in.lao.laounseen.utility.MyAlert;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class RegisterFragment extends Fragment {
 
@@ -28,6 +39,8 @@ public class RegisterFragment extends Fragment {
     private Uri uri;
     private ImageView imageView;
     boolean aBoolean = true;
+    private String nameString, emailString, passwordString,
+            uidString, pathURLString, myPostString;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -66,9 +79,9 @@ public class RegisterFragment extends Fragment {
         EditText passwordEditText = getView().findViewById(R.id.edtPasswordRegis);
 
 //        Get Value From EditText
-        String nameString = nameEditText.getText().toString().trim();
-        String emailString = emailEditText.getText().toString().trim();
-        String passwordString = passwordEditText.getText().toString().trim();
+        nameString = nameEditText.getText().toString().trim();
+        emailString = emailEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
 
 //        Check choose photo
         if (aBoolean) {
@@ -86,7 +99,64 @@ public class RegisterFragment extends Fragment {
                     "Please Fill All Every Blank");
 
         } else {
+//            No Space
+            createAuthentication();
+            uploadPhotoToFirebase();
         }
+    }
+
+    private void createAuthentication() {
+
+        Log.d("8AugV1", "CreateAuthen Work");
+
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(emailString, passwordString)
+        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+
+                    uidString = firebaseAuth.getCurrentUser().getUid();
+                    Log.d("8AugV1", "uidString ==>" + uidString);
+
+                } else {
+                    MyAlert myAlert = new MyAlert(getActivity());
+                    myAlert.normalDialog("Cannot Rregister",
+                            "Beacause ==>" + task.getException().getMessage());
+                    Log.d("8AugV1", "Error ==>" + task.getException().getMessage());
+                }
+            }
+        });
+
+
+
+
+
+    }
+
+    private void uploadPhotoToFirebase() {
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference();
+        StorageReference storageReference1 = storageReference.child("Avata/" + nameString);
+        storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getActivity(),"Success Upload Photo",Toast.LENGTH_SHORT).show();
+
+                findPathUrlPhoto();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(),"Cannot Upload Photo",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    } // UploadPhoto
+
+    private void findPathUrlPhoto() {
+
     }
 
     @Override

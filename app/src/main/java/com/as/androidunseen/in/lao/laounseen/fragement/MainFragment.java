@@ -9,9 +9,11 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 import android.widget.TextView;
 
 import com.as.androidunseen.in.lao.laounseen.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainFragment extends Fragment {
 
@@ -20,8 +22,28 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Check Status
+
+        checkStatus();
+
 //        Register Controller
 
+        registerController();
+
+    } //Medthod Main
+
+    private void checkStatus() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentMainFragment, new ServiceFragment())
+                    .commit();
+        }
+    }
+
+    private void registerController() {
         TextView textView = getView().findViewById(R.id.txtRegister);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,8 +57,7 @@ public class MainFragment extends Fragment {
                         .commit();
             }
         });
-
-    } //Medthod Main
+    }
 
     @Nullable
     @Override
