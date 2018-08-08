@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class RegisterFragment extends Fragment {
     //    Explicit
     private Uri uri;
     private ImageView imageView;
-    boolean aBoolean=true;
+    boolean aBoolean = true;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class RegisterFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.menu_register,menu);
+        inflater.inflate(R.menu.menu_register, menu);
     }
 
     @Override
@@ -60,18 +61,32 @@ public class RegisterFragment extends Fragment {
 
     private void uploadProcess() {
 
+        EditText nameEditText = getView().findViewById(R.id.edtNameRegis);
+        EditText emailEditText = getView().findViewById(R.id.edtEmailRegis);
+        EditText passwordEditText = getView().findViewById(R.id.edtPasswordRegis);
 
+//        Get Value From EditText
+        String nameString = nameEditText.getText().toString().trim();
+        String emailString = emailEditText.getText().toString().trim();
+        String passwordString = passwordEditText.getText().toString().trim();
 
 //        Check choose photo
         if (aBoolean) {
 //            Non Choose Photo
             MyAlert myAlert = new MyAlert(getActivity());
-            myAlert.normalDialog("Non Choose Photo", "Please Choose Photo");
+            myAlert.normalDialog("Non Choose Photo",
+                    "Please Choose Photo");
 
-        } /*else if () {
+//             Check name || email || password == null
+        } else if (nameString.isEmpty() || emailString.isEmpty() || passwordString.isEmpty()) {
+
+//            Have Space
+            MyAlert myAlert = new MyAlert(getActivity());
+            myAlert.normalDialog("Have Space",
+                    "Please Fill All Every Blank");
 
         } else {
-        }*/
+        }
     }
 
     @Override
@@ -81,7 +96,7 @@ public class RegisterFragment extends Fragment {
         if (resultCode == getActivity().RESULT_OK) {
 
             uri = data.getData();
-            aBoolean=false;
+            aBoolean = false;
 
             try {
 
@@ -92,7 +107,7 @@ public class RegisterFragment extends Fragment {
 
                 imageView.setImageBitmap(bitmap1);
 
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -109,7 +124,7 @@ public class RegisterFragment extends Fragment {
 
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent,"Please Choose App"),1);
+                startActivityForResult(Intent.createChooser(intent, "Please Choose App"), 1);
 
             }
         });
@@ -117,10 +132,10 @@ public class RegisterFragment extends Fragment {
 
     private void createToolbar() {
         Toolbar toolbar = getView().findViewById(R.id.toobarRegis);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Register");
-        ((MainActivity)getActivity()).getSupportActionBar().setSubtitle("Register lolzzz");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Register");
+        ((MainActivity) getActivity()).getSupportActionBar().setSubtitle("Register lolzzz");
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
