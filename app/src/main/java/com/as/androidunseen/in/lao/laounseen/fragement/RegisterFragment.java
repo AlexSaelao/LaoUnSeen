@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.as.androidunseen.in.lao.laounseen.MainActivity;
 import com.as.androidunseen.in.lao.laounseen.R;
+import com.as.androidunseen.in.lao.laounseen.utility.MyAlert;
 
 public class RegisterFragment extends Fragment {
 
     //    Explicit
     private Uri uri;
     private ImageView imageView;
+    boolean aBoolean=true;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -49,10 +51,27 @@ public class RegisterFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.itemUpload) {
+            uploadProcess();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void uploadProcess() {
+
+
+
+//        Check choose photo
+        if (aBoolean) {
+//            Non Choose Photo
+            MyAlert myAlert = new MyAlert(getActivity());
+            myAlert.normalDialog("Non Choose Photo", "Please Choose Photo");
+
+        } /*else if () {
+
+        } else {
+        }*/
     }
 
     @Override
@@ -62,6 +81,8 @@ public class RegisterFragment extends Fragment {
         if (resultCode == getActivity().RESULT_OK) {
 
             uri = data.getData();
+            aBoolean=false;
+
             try {
 
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
