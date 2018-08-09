@@ -1,6 +1,7 @@
 package com.as.androidunseen.in.lao.laounseen.fragement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.as.androidunseen.in.lao.laounseen.R;
+import com.as.androidunseen.in.lao.laounseen.ServiceActivity;
 import com.as.androidunseen.in.lao.laounseen.utility.MyAlert;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,11 +84,7 @@ public class MainFragment extends Fragment {
                         if (task.isSuccessful()) {
 
 //                            Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
-                            getActivity()
-                                    .getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.contentMainFragment, new ServiceFragment())
-                                    .commit();
+                            moveToService();
 
                         } else {
 
@@ -102,12 +100,16 @@ public class MainFragment extends Fragment {
     private void checkStatus() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contentMainFragment, new ServiceFragment())
-                    .commit();
+
+            moveToService();
+        } else {
+
         }
+    }
+
+    private void moveToService() {
+
+        startActivity(new Intent(getActivity(), ServiceActivity.class));
     }
 
     private void registerController() {

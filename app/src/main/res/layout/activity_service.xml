@@ -5,12 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ServiceActivity">
+
+    <!--Content of Toobar and Fragmennt-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <!--ToolBar-->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toobarService"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <!--Content Fragment-->
 
@@ -23,5 +33,22 @@
     </LinearLayout>
 
     <!--Drawer Menu-->
+
+    <LinearLayout
+        android:layout_gravity="start"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/h1"
+            android:text="Drawer Menu"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
