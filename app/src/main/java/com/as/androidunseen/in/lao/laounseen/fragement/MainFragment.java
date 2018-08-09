@@ -40,7 +40,7 @@ public class MainFragment extends Fragment {
 //        Register Controller
 
         registerController();
-        
+
 //        Login Controller
 
         loginController();
@@ -109,6 +109,7 @@ public class MainFragment extends Fragment {
     private void moveToService() {
 
         startActivity(new Intent(getActivity(), ServiceActivity.class));
+        getActivity().finish();
     }
 
     private void registerController() {
