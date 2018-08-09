@@ -41,13 +41,54 @@
         android:background="#ffffff"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/h1"
-            android:text="Drawer Menu"
-            android:textStyle="bold"/>
+        <!--Show Name and Photo-->
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--Name-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/h1"
+                android:text="Drawer Menu"
+                android:textStyle="bold"/>
+
+            <!--Icon-->
+
+
+
+
+        </LinearLayout>
+
+        <!--Exit-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--Icon-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_sign_out_back"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/txtExit"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exit"
+                android:textSize="@dimen/h2"
+                android:layout_gravity="center"/>
+
+            <!--Text-->
+
+        </LinearLayout>
 
     </LinearLayout>
 

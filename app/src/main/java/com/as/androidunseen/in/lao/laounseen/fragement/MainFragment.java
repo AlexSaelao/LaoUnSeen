@@ -40,8 +40,7 @@ public class MainFragment extends Fragment {
 //        Register Controller
 
         registerController();
-
-
+        
 //        Login Controller
 
         loginController();
