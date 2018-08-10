@@ -45,12 +45,17 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         String nameString = nameStringArrayList.get(position);
         String postString = postStringArrayList.get(position);
 
-        holder.nameTextView.setText(nameString);
-        holder.postTextView.setText(postString);
+
+        CircleImageView circleImageView = holder.view.findViewById(R.id.circlePhoto);
+        TextView nameTextView = holder.view.findViewById(R.id.txtName);
+        TextView postTextView = holder.view.findViewById(R.id.txtPost);
+
+        nameTextView.setText(nameString);
+        postTextView.setText(postString);
 
         Picasso.get().load(urlPathString)
-                .resize(150,150)
-                .into(holder.circleImageView);
+                .resize(150, 150)
+                .into(circleImageView);
     }
 
     @Override
@@ -64,21 +69,17 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         private CircleImageView circleImageView;
         private TextView nameTextView, postTextView;
 
+        private View view;
+
         public ServiceViewHolder(View itemView) {
             super(itemView);
 
-            circleImageView = itemView.findViewById(R.id.circlePhoto);
-            nameTextView = itemView.findViewById(R.id.txtName);
-            postTextView = itemView.findViewById(R.id.txtPost);
+            view = itemView;
 
         }
 
 
     } // Service Class
-
-
-
-
 
 
 } // Main Class
