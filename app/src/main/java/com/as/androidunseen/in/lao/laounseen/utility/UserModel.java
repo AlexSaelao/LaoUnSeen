@@ -16,6 +16,7 @@ public class UserModel implements Parcelable {
         this.emailString = emailString;
         this.pathUrlString = pathUrlString;
         this.myPostString = myPostString;
+
     }
 
     protected UserModel(Parcel in) {

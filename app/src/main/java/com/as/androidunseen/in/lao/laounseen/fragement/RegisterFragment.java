@@ -160,7 +160,7 @@ public class RegisterFragment extends Fragment {
 
                 findPathUrlPhoto();
                 createPost();
-                createDatabase();
+
                 progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -221,6 +221,7 @@ public class RegisterFragment extends Fragment {
 
                     urlStrings[0] = uri.toString();
                     pathURLString = urlStrings[0];
+                    createDatabase();
 
                     Log.d("9AugV1", "pathURL ==>" + pathURLString);
                 }
