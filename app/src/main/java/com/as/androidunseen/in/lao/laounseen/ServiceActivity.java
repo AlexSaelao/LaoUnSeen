@@ -3,6 +3,7 @@ package com.as.androidunseen.in.lao.laounseen;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.as.androidunseen.in.lao.laounseen.fragement.ServiceFragment;
@@ -24,8 +25,8 @@ public class ServiceActivity extends AppCompatActivity {
     } // Main Method
 
     private void exitController() {
-        TextView textView = findViewById(R.id.txtExit);
-        textView.setOnClickListener(new View.OnClickListener() {
+        LinearLayout linearLayout = findViewById(R.id.linearExit);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
